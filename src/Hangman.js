@@ -54,7 +54,7 @@ class Hangman extends Component {
 			'pencil',
 			'hang',
 			'hold',
-			'thater',
+			'theater',
 			'cinema',
 			'milk',
 			'yellow',
