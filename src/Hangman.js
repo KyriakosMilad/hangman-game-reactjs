@@ -86,7 +86,6 @@ class Hangman extends Component {
 		this.state.answer.split('').forEach((element) => {
 			if (ltr === element) {
 				numberOfDigists++;
-				console.log('numberOfDigists: ', numberOfDigists);
 			}
 		});
 		return numberOfDigists;
@@ -99,7 +98,6 @@ class Hangman extends Component {
 	handleGuess(evt) {
 		let won = false;
 		let ltr = evt.target.value;
-		console.log(this.state.answer.length, this.state.guessedRight.size + this.getDigitsNumberOfLetterInWord(ltr));
 		if (
 			this.state.answer.includes(ltr) &&
 			this.state.answer.length === this.state.guessedRightDigits + this.getDigitsNumberOfLetterInWord(ltr)
