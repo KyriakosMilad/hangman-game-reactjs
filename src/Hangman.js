@@ -17,6 +17,7 @@ class Hangman extends Component {
 				nWrong: 0,
 				guessed: new Set(),
 				guessedRight: new Set(),
+				guessedRightDigits: 0,
 				answer: this.props.answer,
 				won: false,
 			};
@@ -25,6 +26,7 @@ class Hangman extends Component {
 				nWrong: 0,
 				guessed: new Set(),
 				guessedRight: new Set(),
+				guessedRightDigits: 0,
 				answer: this.getNewAnswer(),
 				won: false,
 			};
@@ -78,17 +80,29 @@ class Hangman extends Component {
 			.map((ltr) => (this.state.guessed.has(ltr) ? ltr : '_'));
 	}
 
-	/** handleGuest: handle a guessed letter:
+	/** check duplicated letters */
+	getDigitsNumberOfLetterInWord(ltr) {
+		let numberOfDigists = 0;
+		this.state.answer.split('').forEach((element) => {
+			if (ltr === element) {
+				numberOfDigists++;
+				console.log('numberOfDigists: ', numberOfDigists);
+			}
+		});
+		return numberOfDigists;
+	}
+
+	/** handleGuess: handle a guessed letter:
     - add to guessed letters
     - if not in answer, increase number-wrong guesses
   */
 	handleGuess(evt) {
 		let won = false;
 		let ltr = evt.target.value;
-		console.log(this.state.answer.length, this.state.guessedRight.size + 1);
+		console.log(this.state.answer.length, this.state.guessedRight.size + this.getDigitsNumberOfLetterInWord(ltr));
 		if (
 			this.state.answer.includes(ltr) &&
-			this.state.answer.length === this.state.guessedRight.size + 1
+			this.state.answer.length === this.state.guessedRightDigits + this.getDigitsNumberOfLetterInWord(ltr)
 		) {
 			won = true;
 		}
@@ -97,6 +111,7 @@ class Hangman extends Component {
 			guessedRight: st.answer.includes(ltr)
 				? st.guessedRight.add(ltr)
 				: st.guessedRight,
+			guessedRightDigits: st.guessedRightDigits + this.getDigitsNumberOfLetterInWord(ltr),
 			nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1),
 			won: won,
 		}));
@@ -124,6 +139,7 @@ class Hangman extends Component {
 		this.setState((st) => ({
 			guessed: new Set(),
 			guessedRight: new Set(),
+			guessedRightDigits: 0,
 			nWrong: 0,
 			answer: this.getNewAnswer(),
 			won: false,
