@@ -16,7 +16,6 @@ class Hangman extends Component {
 			this.state = {
 				nWrong: 0,
 				guessed: new Set(),
-				guessedRight: new Set(),
 				guessedRightDigits: 0,
 				answer: this.props.answer,
 				won: false,
@@ -25,7 +24,6 @@ class Hangman extends Component {
 			this.state = {
 				nWrong: 0,
 				guessed: new Set(),
-				guessedRight: new Set(),
 				guessedRightDigits: 0,
 				answer: this.getNewAnswer(),
 				won: false,
@@ -106,9 +104,6 @@ class Hangman extends Component {
 		}
 		this.setState((st) => ({
 			guessed: st.guessed.add(ltr),
-			guessedRight: st.answer.includes(ltr)
-				? st.guessedRight.add(ltr)
-				: st.guessedRight,
 			guessedRightDigits: st.guessedRightDigits + this.getDigitsNumberOfLetterInWord(ltr),
 			nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1),
 			won: won,
@@ -136,7 +131,6 @@ class Hangman extends Component {
 	newGame() {
 		this.setState((st) => ({
 			guessed: new Set(),
-			guessedRight: new Set(),
 			guessedRightDigits: 0,
 			nWrong: 0,
 			answer: this.getNewAnswer(),
